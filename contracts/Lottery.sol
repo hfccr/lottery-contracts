@@ -88,8 +88,6 @@ contract Lottery {
     }
 
     function resetLottery() public {
-        require(lotteryOpen == false, "The lottery is still open");
-
         for (uint i = 0; i < maxParticipants; i++) {
             isParticipant[participants[i]] = false;
         }
