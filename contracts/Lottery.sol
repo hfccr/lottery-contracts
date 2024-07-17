@@ -16,6 +16,8 @@ contract Lottery {
     address[] public winners;
     // Participant mapping
     mapping(address => bool) public isParticipant;
+    // Winner mapping
+    mapping(address => bool) public isWinner;
     // The entry fee
     uint public entryFee = 0.000015 ether;
     // The current number of participants
@@ -64,6 +66,7 @@ contract Lottery {
                 )
             ) % participantCount;
             winners.push(participants[winnerIndex]);
+            isWinner[participants[winnerIndex]] = true;
 
             // Remove the winner from the participants list
             participants[winnerIndex] = participants[participantCount - 1];
@@ -91,7 +94,9 @@ contract Lottery {
         for (uint i = 0; i < maxParticipants; i++) {
             isParticipant[participants[i]] = false;
         }
-
+        for (uint i = 0; i < winnerCount; i++) {
+            isWinner[winners[i]] = false;
+        }
         delete participants;
         delete winners;
         participantCount = 0;
@@ -108,5 +113,13 @@ contract Lottery {
 
     function getParticipants() public view returns (address[] memory) {
         return participants;
+    }
+
+    function isAddressWinner(address _address) public view returns (bool) {
+        return isWinner[_address];
+    }
+
+    function getWinners() public view returns (address[] memory) {
+        return winners;
     }
 }
