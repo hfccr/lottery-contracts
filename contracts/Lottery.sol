@@ -93,6 +93,7 @@ contract Lottery {
         }
 
         delete participants;
+        delete winners;
         participantCount = 0;
         lotteryOpen = true;
         delete winners;
