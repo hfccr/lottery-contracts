@@ -91,11 +91,13 @@ contract Lottery {
     }
 
     function resetLottery() public {
-        for (uint i = 0; i < maxParticipants; i++) {
+        for (uint i = 0; i < participantCount; i++) {
             isParticipant[participants[i]] = false;
         }
-        for (uint i = 0; i < winnerCount; i++) {
-            isWinner[winners[i]] = false;
+        if (!lotteryOpen) {
+            for (uint i = 0; i < winnerCount; i++) {
+                isWinner[winners[i]] = false;
+            }
         }
         delete participants;
         delete winners;
