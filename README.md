@@ -1,13 +1,19 @@
-# Sample Hardhat Project
+# Lottery
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+This is a simple lottery contract repo. `./src/Lottery.sol` contains code for a simple lottery contract.
 
-Try running some of the following tasks:
+## Local Development With NextJS Frontend
+
+Open a terminal and start a local hardhat node
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
 npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.ts
 ```
+
+Open another terminal and deploy the lottery contract on the local hardhat node
+
+```shell
+npx hardhat ignition deploy ./ignition/modules/Lottery.ts --network localhost
+```
+
+You can test your lottery contract using `npx hardhat test`
