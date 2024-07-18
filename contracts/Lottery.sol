@@ -24,7 +24,7 @@ contract Lottery {
     uint8 public participantCount = 0;
     // State of the lottery
     bool public lotteryOpen = true;
-    uint256 public totalPayout = 0;
+    mapping(address => uint256) public balances;
 
     // event player entered the lottery
     event PlayerEntered(address player);
@@ -78,20 +78,28 @@ contract Lottery {
 
         // calculate half, thirty percent and twenty percent of the total balance for the winners
         uint256 totalBalance = address(this).balance;
-        uint256 half = totalBalance / 2;
-        uint256 thirtyPercent = (totalBalance * 30) / 100;
+        uint256 eightyPercent = (totalBalance * 80) / 100;
         uint256 twentyPercent = (totalBalance * 20) / 100;
-        // do the transfers
-        // TODO: use balances and withdraw method for claiming rewards
-        // For now, to keep the interactions simple, we are using transfer
-        payable(winners[0]).transfer(half);
-        payable(winners[1]).transfer(thirtyPercent);
-        payable(winners[2]).transfer(twentyPercent);
+        balances[winners[0]] += eightyPercent;
+        balances[winners[1]] += twentyPercent;
 
         // set lottery open to false
         lotteryOpen = false;
-        totalPayout = totalBalance;
         emit LotteryEnded(winners);
+    }
+
+    function transferPrize() public {
+        require(isWinner[msg.sender], "You are not a winner");
+        require(
+            balances[msg.sender] > 0,
+            "You have already claimed your prize"
+        );
+        payable(msg.sender).transfer(balances[msg.sender]);
+        balances[msg.sender] = 0;
+    }
+
+    function getPrize() public view returns (uint256) {
+        return balances[msg.sender];
     }
 
     function resetLottery() public {
@@ -109,7 +117,6 @@ contract Lottery {
         delete winners;
         participantCount = 0;
         lotteryOpen = true;
-        totalPayout = 0;
         emit LotteryReset();
     }
 
