@@ -9,7 +9,7 @@ contract Lottery {
     // The min number of participants
     uint256 public minParticipants = 5;
     // The number of winners
-    uint256 public winnerCount = 3;
+    uint256 public winnerCount = 2;
     // The list of participants
     address[] public participants;
     // The list if winners
