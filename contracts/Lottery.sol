@@ -24,6 +24,7 @@ contract Lottery {
     uint8 public participantCount = 0;
     // State of the lottery
     bool public lotteryOpen = true;
+    uint256 public totalPayout = 0;
 
     // event player entered the lottery
     event PlayerEntered(address player);
@@ -87,6 +88,7 @@ contract Lottery {
 
         // set lottery open to false
         lotteryOpen = false;
+        totalPayout = totalBalance;
         emit LotteryEnded(winners);
     }
 
