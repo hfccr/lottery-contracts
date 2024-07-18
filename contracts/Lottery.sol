@@ -103,7 +103,7 @@ contract Lottery {
         delete winners;
         participantCount = 0;
         lotteryOpen = true;
-        delete winners;
+        totalPayout = 0;
         emit LotteryReset();
     }
 
