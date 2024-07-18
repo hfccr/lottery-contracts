@@ -68,10 +68,12 @@ contract Lottery {
             ) % participantCount;
             winners.push(participants[winnerIndex]);
             isWinner[participants[winnerIndex]] = true;
+            isParticipant[participants[winnerIndex]] = false;
 
             // Remove the winner from the participants list
-            participants[winnerIndex] = participants[participantCount - 1];
+            participants[winnerIndex] = participants[participants.length - 1];
             participantCount--;
+            participants.pop();
         }
 
         // calculate half, thirty percent and twenty percent of the total balance for the winners
