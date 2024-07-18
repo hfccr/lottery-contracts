@@ -30,4 +30,29 @@ describe("Lottery", function () {
       expect(await lottery.lotteryOpen()).to.equal(true);
     });
   });
+
+  describe("Enter", function () {
+    it("should allow the lottery to be drawn", async function () {
+      const { lottery, owner, player1, player2, player3, player4, player5 } =
+        await loadFixture(deployLottery);
+      await lottery
+        .connect(player1)
+        .enter({ value: ethers.parseEther("0.000015") });
+      await lottery
+        .connect(player2)
+        .enter({ value: ethers.parseEther("0.000015") });
+      await lottery
+        .connect(player3)
+        .enter({ value: ethers.parseEther("0.000015") });
+      await lottery
+        .connect(player4)
+        .enter({ value: ethers.parseEther("0.000015") });
+      await lottery
+        .connect(player5)
+        .enter({ value: ethers.parseEther("0.000015") });
+      await expect(lottery.connect(owner).endLottery()).not.to.be.reverted;
+      const winners = await lottery.getWinners();
+      expect(winners).to.have.lengthOf(3);
+    });
+  });
 });
