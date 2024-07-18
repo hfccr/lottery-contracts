@@ -101,6 +101,8 @@ contract Lottery {
         if (!lotteryOpen) {
             for (uint i = 0; i < winnerCount; i++) {
                 isWinner[winners[i]] = false;
+                isParticipant[winners[i]] = false;
+                balances[winners[i]] = 0;
             }
         }
         delete participants;
