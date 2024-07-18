@@ -17,3 +17,17 @@ npx hardhat ignition deploy ./ignition/modules/Lottery.ts --network localhost
 ```
 
 You can test your lottery contract using `npx hardhat test`
+
+### Tasks
+
+Enter the lottery using hardhat accounts
+
+```shell
+npx hardhat enterLottery --network localhost
+```
+
+Draw the lottery
+
+```shell
+npx hardhat drawLottery --network localhost
+```
