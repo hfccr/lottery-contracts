@@ -1,9 +1,20 @@
+import { config as dotEnvConfig } from "dotenv";
+dotEnvConfig();
+
 import { HardhatUserConfig, task } from "hardhat/config";
 import { Lottery } from "./typechain-types";
+
 import "@nomicfoundation/hardhat-toolbox";
 
 const config: HardhatUserConfig = {
   solidity: "0.8.24",
+  networks: {
+    sepolia: {
+      chainId: 11155111,
+      url: process.env.PROVIDER_URL ?? "https://sepolia.infura.io/v3/",
+      accounts: [process.env.PRIVATE_KEY ?? ""],
+    },
+  },
 };
 
 task("enterLottery", "Enters 5 accounts in lottery", async (taskArgs, hre) => {
