@@ -25,7 +25,7 @@ describe("Lottery", function () {
       expect(await lottery.owner()).to.equal(owner.address);
       expect(await lottery.maxParticipants()).to.equal(10);
       expect(await lottery.minParticipants()).to.equal(5);
-      expect(await lottery.winnerCount()).to.equal(3);
+      expect(await lottery.winnerCount()).to.equal(2);
       expect(await lottery.entryFee()).to.equal(ethers.parseEther("0.000015"));
       expect(await lottery.lotteryOpen()).to.equal(true);
     });
@@ -52,7 +52,7 @@ describe("Lottery", function () {
         .enter({ value: ethers.parseEther("0.000015") });
       await expect(lottery.connect(owner).endLottery()).not.to.be.reverted;
       const winners = await lottery.getWinners();
-      expect(winners).to.have.lengthOf(3);
+      expect(winners).to.have.lengthOf(2);
     });
   });
 });
