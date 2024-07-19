@@ -60,6 +60,7 @@ contract Lottery {
         require(lotteryOpen, "The lottery is already closed");
         require(participantCount >= minParticipants, "The lottery is not full");
 
+        // TODO: Use VRF to generate random numbers
         for (uint i = 0; i < winnerCount; i++) {
             uint256 winnerIndex = uint256(
                 keccak256(
@@ -76,12 +77,12 @@ contract Lottery {
             participants.pop();
         }
 
-        // calculate half, thirty percent and twenty percent of the total balance for the winners
+        // calculate sixty percent and forty percent of the total balance for the winners
         uint256 totalBalance = address(this).balance;
-        uint256 eightyPercent = (totalBalance * 80) / 100;
-        uint256 twentyPercent = (totalBalance * 20) / 100;
-        balances[winners[0]] += eightyPercent;
-        balances[winners[1]] += twentyPercent;
+        uint256 sixtyPercent = (totalBalance * 60) / 100;
+        uint256 fortyPercent = (totalBalance * 40) / 100;
+        balances[winners[0]] += sixtyPercent;
+        balances[winners[1]] += fortyPercent;
 
         // set lottery open to false
         lotteryOpen = false;
