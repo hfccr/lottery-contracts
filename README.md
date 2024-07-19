@@ -50,4 +50,3 @@ Draw the lottery
 ```shell
 npx hardhat drawLottery --network localhost
 ```
-
