@@ -98,8 +98,8 @@ contract Lottery {
         balances[msg.sender] = 0;
     }
 
-    function getPrize() public view returns (uint256) {
-        return balances[msg.sender];
+    function getPrize(address _address) public view returns (uint256) {
+        return balances[_address];
     }
 
     function resetLottery() public {
